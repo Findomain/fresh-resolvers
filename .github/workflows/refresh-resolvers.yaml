@@ -2,7 +2,7 @@ name: refresh-resolvers
 
 on:
   schedule:
-  # Run daily
+  # Run hourly
     - cron:  '0 * * * *'
 
 jobs:
