@@ -3,7 +3,7 @@ name: refresh-resolvers
 on:
   schedule:
   # Run hourly
-    - cron:  '30 * * * *'
+    - cron:  '30 */6 * * *'
 
 jobs:
   resfresh-list:
