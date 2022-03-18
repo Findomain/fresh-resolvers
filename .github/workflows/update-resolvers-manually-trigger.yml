@@ -1,4 +1,4 @@
-name: refresh-resolvers
+name: refresh-resolvers-manually
 
 on: workflow_dispatch
 
