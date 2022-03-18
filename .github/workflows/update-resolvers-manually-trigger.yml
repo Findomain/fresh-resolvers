@@ -31,8 +31,8 @@ jobs:
       - name: Generate new resolvers
         run: |
           dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent >  ~/resolvers.txt
-          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent > resolvers2.txt
-          dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent > resolvers3.txt
+          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent > ~/resolvers2.txt
+          dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent > ~/resolvers3.txt
     
       - name: Set current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
