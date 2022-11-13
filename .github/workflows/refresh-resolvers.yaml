@@ -30,15 +30,15 @@ jobs:
       - name: Install DNS Validator
         run: |
           cd dnsvalidator
-          python3 setup.py install
+          python3 setup.py install --single-version-externally-managed --root=/
       
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # - name: Setup tmate session
+        # uses: mxschmitt/action-tmate@v3
         
         # See https://github.com/vortexau/dnsvalidator/issues/36
       - name: Fix wildcards issue with dnsvalidator.
-        run: sed 's/\"telegram\.com\"\, \"wikileaks\.com\"/\"wikileaks\.com\"/g' /usr/lib/python3.10/site-packages/dnsvalidator/dnsvalidator.py
+        run: sed 's/\"telegram\.com\"\, \"wikileaks\.com\"/\"wikileaks\.com\"/g' /opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/dnsvalidator/dnsvalidator.py
     
       - name: Generate new resolvers
         run: |
