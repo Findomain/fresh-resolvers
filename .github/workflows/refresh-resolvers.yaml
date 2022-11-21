@@ -29,14 +29,15 @@ jobs:
     
       - name: Install DNS Validator
         run: pip install https://github.com/vortexau/dnsvalidator/archive/refs/heads/master.zip
-      
-      # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3
         
         # See https://github.com/vortexau/dnsvalidator/issues/36
       - name: Fix wildcards issue with dnsvalidator.
         run: sed -i 's/\"telegram\.com\"\, \"wikileaks\.com\"/\"wikileaks\.com\"/g' /opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/dnsvalidator/dnsvalidator.py
+    
+       
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
     
       - name: Generate new resolvers
         run: |
