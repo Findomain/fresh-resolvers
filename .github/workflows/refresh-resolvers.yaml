@@ -36,13 +36,13 @@ jobs:
         
         # See https://github.com/vortexau/dnsvalidator/issues/36
       - name: Fix wildcards issue with dnsvalidator.
-        run: sed 's/\"telegram\.com\"\, \"wikileaks\.com\"/\"wikileaks\.com\"/g' /opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/dnsvalidator/dnsvalidator.py
+        run: sed -i 's/\"telegram\.com\"\, \"wikileaks\.com\"/\"wikileaks\.com\"/g' /opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/dnsvalidator/dnsvalidator.py
     
       - name: Generate new resolvers
         run: |
-          dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent >  ~/resolvers.txt
-          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent > ~/resolvers2.txt
-          dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent > ~/resolvers3.txt
+          dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent -o ~/resolvers.txt
+          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent -o ~/resolvers2.txt
+          dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent -o ~/resolvers3.txt
     
       - name: Set current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
