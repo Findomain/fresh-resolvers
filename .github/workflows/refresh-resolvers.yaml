@@ -36,13 +36,12 @@ jobs:
     
        
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
     
       - name: Generate new resolvers
-        run: |
-          dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent -o ~/resolvers.txt
-          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent -o ~/resolvers2.txt
+        run: dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent -o ~/resolvers.txt && \
+          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent -o ~/resolvers2.txt && \
           dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent -o ~/resolvers3.txt
     
       - name: Set current date
