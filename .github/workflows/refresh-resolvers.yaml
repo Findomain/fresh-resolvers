@@ -31,8 +31,8 @@ jobs:
         run: pip install https://github.com/vortexau/dnsvalidator/archive/refs/heads/master.zip
       
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
         
         # See https://github.com/vortexau/dnsvalidator/issues/36
       - name: Fix wildcards issue with dnsvalidator.
