@@ -28,9 +28,7 @@ jobs:
           path: dnsvalidator
     
       - name: Install DNS Validator
-        run: |
-          cd dnsvalidator
-          python3 setup.py install --single-version-externally-managed --root=/
+        run: pip install https://github.com/vortexau/dnsvalidator/archive/refs/heads/master.zip
       
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       - name: Setup tmate session
