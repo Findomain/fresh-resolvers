@@ -1,20 +1,19 @@
 name: refresh-resolvers
 
 on:
-  workflow_dispatch:
   schedule:
-  # Run hourly
+  # Run every 12h
     - cron:  '30 */12 * * *'
 
 jobs:
   resfresh-list:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
+          python-version: '3.6'
     
       - name: checkout
         uses: actions/checkout@v2
@@ -28,29 +27,24 @@ jobs:
           path: dnsvalidator
     
       - name: Install DNS Validator
-        run: pip install https://github.com/vortexau/dnsvalidator/archive/refs/heads/master.zip
-        
-        # See https://github.com/vortexau/dnsvalidator/issues/36
-      - name: Fix wildcards issue with dnsvalidator.
-        run: sed -i 's/\"telegram\.com\"\, \"wikileaks\.com\"/\"wikileaks\.com\"/g' /opt/hostedtoolcache/Python/3.10.8/x64/lib/python3.10/site-packages/dnsvalidator/dnsvalidator.py
-    
-       
-      # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3
+        run: |
+          cd dnsvalidator
+          python3 setup.py install
+      
+      - name: Install contextvars
+        run: pip3 install contextvars
     
       - name: Generate new resolvers
         run: dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent -o ~/resolvers.txt && \
           dnsvalidator -tL ~/resolvers.txt -threads 20 --silent -o ~/resolvers2.txt && \
           dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent -o ~/resolvers3.txt
+        
+      # Enable tmate debugging of manually-triggered workflows if the input option was provided
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
     
       - name: Set current date
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-
-      # - name: Move up directory
-      #   run: |
-      #     mv resolvers.txt ..
-      #     cd ..
       
       - name: Commit changes
         run: |
@@ -65,3 +59,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
+          
