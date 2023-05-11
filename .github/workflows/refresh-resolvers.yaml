@@ -61,3 +61,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           
+      - uses: gautamkrishnar/keepalive-workflow@v1
