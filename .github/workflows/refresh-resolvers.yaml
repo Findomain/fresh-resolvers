@@ -1,6 +1,7 @@
 name: refresh-resolvers
 
 on:
+  workflow_dispatch:
   schedule:
   # Run every 12h
     - cron:  '30 */12 * * *'
