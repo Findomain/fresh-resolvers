@@ -36,9 +36,7 @@ jobs:
         run: pip3 install contextvars
     
       - name: Generate new resolvers
-        run: dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent -o ~/resolvers.txt && \
-          dnsvalidator -tL ~/resolvers.txt -threads 20 --silent -o ~/resolvers2.txt && \
-          dnsvalidator -tL ~/resolvers2.txt -threads 20 --silent -o ~/resolvers3.txt
+        run: dnsvalidator -tL https://public-dns.info/nameservers.txt -threads 20 --silent -o ~/resolvers.txt
         
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       #- name: Setup tmate session
@@ -49,7 +47,7 @@ jobs:
       
       - name: Commit changes
         run: |
-          mv ~/resolvers3.txt ./resolvers.txt
+          mv ~/resolvers.txt ./resolvers.txt
           git config --local user.email "edu4rdshl@protonmail.com"
           git config --local user.name "Edu4rdSHL"
           git add resolvers.txt
