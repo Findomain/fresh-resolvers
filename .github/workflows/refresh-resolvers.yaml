@@ -11,9 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Set up coreutils
-        run: sudo apt update && sudo apt install coreutils
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
