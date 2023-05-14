@@ -41,7 +41,7 @@ jobs:
         run: curl -LO https://public-dns.info/nameservers.txt && head -n 10000 nameservers.txt > raw-resolvers.txt
     
       - name: Generate new resolvers
-        run: dnsvalidator -tL ./raw-resolvers.txt -threads 20 --silent -o ~/resolvers.txt
+        run: dnsvalidator -tL ./raw-resolvers.txt -threads 30 --silent -o > resolvers.txt
         
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
       #- name: Setup tmate session
@@ -52,7 +52,7 @@ jobs:
       
       - name: Commit changes
         run: |
-          mv ~/resolvers.txt ./resolvers.txt
+          mv ~/resolvers.txt .
           git config --local user.email "edu4rdshl@protonmail.com"
           git config --local user.name "Edu4rdSHL"
           git add resolvers.txt
